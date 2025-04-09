@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Forecast</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Market Forecast</h1>
+    <form id="forecastForm">
+        <label for="industry">Select Industry:</label>
+        <select id="industry" name="industry">
+                    <option value="all-industry">All Industry Total</option>
+                    <option value="private-industries">Private Industries</option>
+                    <option value="agriculture">Agriculture, Forestry, Fishing and Hunting</option>
+                    <option value="mining">Mining, Quarrying, and Oil and Gas Extraction</option>
+                    <option value="utilities">Utilities</option>
+                    <option value="construction">Construction</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="durable-goods">Durable Goods Manufacturing</option>
+                    <option value="nondurable-goods">Nondurable Goods Manufacturing</option>
+                    <option value="wholesale-trade">Wholesale Trade</option>
+                    <option value="retail-trade">Retail Trade</option>
+                    <option value="transportation">Transportation and Warehousing</option>
+                    <option value="information">Information</option>
+                    <option value="finance">Finance and Insurance</option>
+                    <option value="real-estate">Real Estate and Rental and Leasing</option>
+                    <option value="professional-services">Professional, Scientific, and Technical Services</option>
+                    <option value="management">Management of Companies and Enterprises</option>
+                    <option value="admin-support">Administrative and Support and Waste Management and Remediation Services</option>
+                    <option value="education">Educational Services</option>
+                    <option value="healthcare">Health Care and Social Assistance</option>
+                    <option value="arts">Arts, Entertainment, and Recreation</option>
+                    <option value="accommodation">Accommodation and Food Services</option>
+                    <option value="other-services">Other Services (Except Government and Government Enterprises)</option>
+                    <option value="government">Government and Government Enterprises</option>
+                    <option value="federal-civilian">Federal Civilian</option>
+                    <option value="military">Military</option>
+                    <option value="state-local">State and Local</option>
+    </select>
+    <button type="submit">Get Forecast</button>
+</form>
+<div id="result"></div>
+
+<script>
+    document.getElementById('forecastForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const industryName = document.getElementById('industry').value;
+
+        try {
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ industry_name: industryName }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                document.getElementById('result').innerText = `Error: ${errorData.error}`;
+            } else {
+                const data = await response.json();
+                document.getElementById('result').innerText = `Forecasted GDP: ${data.forecasted_gdp}`;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerText = 'An error occurred while fetching the forecast.';
+        }
+    });
+</script>
+</body>
+</html>

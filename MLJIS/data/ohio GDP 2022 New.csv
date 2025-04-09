@@ -1,0 +1,28 @@
+GeoFips,GeoName,LineCode,Description,2022:Q1,2022:Q2,2022:Q3,2022:Q4
+39000,Ohio,1,All industry total,808667.1,827812.5,839134.8,855028.5
+39000,Ohio,2,  Private industries,727084.9,744580.4,755481,770948.7
+39000,Ohio,3,"      Agriculture, forestry, fishing and hunting",5712.5,7157.4,7285.4,7067.2
+39000,Ohio,6,"      Mining, quarrying, and oil and gas extraction",6086.6,7388.9,6997.2,6227.3
+39000,Ohio,10,      Utilities,11638.3,13625.9,14383,14394.1
+39000,Ohio,11,      Construction,31208.4,31371.7,31580.5,33430.4
+39000,Ohio,12,      Manufacturing,126939.7,129380.6,129875.7,132967.8
+39000,Ohio,13,          Durable goods manufacturing,61430.7,62842.6,65787,66415.8
+39000,Ohio,25,          Nondurable goods manufacturing,65508.9,66538,64088.7,66552
+39000,Ohio,34,      Wholesale trade,52576.6,53355.1,53868.5,54939.6
+39000,Ohio,35,      Retail trade,52360.3,52700.3,53282.6,55936.8
+39000,Ohio,36,      Transportation and warehousing,29167.5,30043.7,30206.2,30350.3
+39000,Ohio,45,      Information,18566.4,18706.5,18875.9,19747.2
+39000,Ohio,51,      Finance and insurance,90980,92725.4,95009.2,94449.3
+39000,Ohio,56,      Real estate and rental and leasing,90904.9,93116.5,95090.9,97392.8
+39000,Ohio,60,"      Professional, scientific, and technical services",43758.2,44437.3,45438.3,47096.3
+39000,Ohio,64,      Management of companies and enterprises,24305.6,25275.5,24834.3,25092.7
+39000,Ohio,65,      Administrative and support and waste management and remediation services,25493,25526.4,26168.3,26644
+39000,Ohio,69,      Educational services,6382.5,6544.4,6719,6839.6
+39000,Ohio,70,      Health care and social assistance,66760.6,67627.7,69039,69717.9
+39000,Ohio,76,"      Arts, entertainment, and recreation",7023.8,7396.7,7486.5,7968.6
+39000,Ohio,79,      Accommodation and food services,20509.4,21038.6,21621.5,22409.1
+39000,Ohio,82,      Other services (except government and government enterprises),16710.6,17162.1,17719.2,18277.7
+39000,Ohio,83,  Government and government enterprises,81582.2,83232,83653.8,84079.8
+39000,Ohio,84,    Federal civilian,13858.9,13986.9,14148.8,14359.5
+39000,Ohio,85,    Military,5571.6,5718.9,5853.5,5912.7
+39000,Ohio,86,    State and local,62151.7,63526.2,63651.6,63807.6

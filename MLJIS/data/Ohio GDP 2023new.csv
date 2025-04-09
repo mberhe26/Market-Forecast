@@ -1,0 +1,32 @@
+GeoFips,GeoName,LineCode,Description,2023:Q1,2023:Q2,2023:Q3,2023:Q4
+39000,Ohio,1,All industry total,866533.9,876764.5,893191.9,902846.4
+39000,Ohio,2,  Private industries,781143,790637.1,805570.4,813721
+39000,Ohio,3,"      Agriculture, forestry, fishing and hunting",9042.2,7999.4,7450.3,6687.4
+39000,Ohio,6,"      Mining, quarrying, and oil and gas extraction",6233.7,6068.9,6759.7,6788.9
+39000,Ohio,10,      Utilities,13968.4,14912.4,15440.9,14963.3
+39000,Ohio,11,      Construction,33953,33955.1,34709,36173.6
+39000,Ohio,12,      Manufacturing,130593.2,133011.1,135926,136511.7
+39000,Ohio,13,          Durable goods manufacturing,66711.9,68674.3,68670.3,70334.7
+39000,Ohio,25,          Nondurable goods manufacturing,63881.3,64336.8,67255.8,66177
+39000,Ohio,34,      Wholesale trade,54501.8,54527.9,55648.9,55588.8
+39000,Ohio,35,      Retail trade,57083.4,57497.5,59633.3,60295.7
+39000,Ohio,36,      Transportation and warehousing,30216.1,30074.7,29432.1,29418
+39000,Ohio,45,      Information,19160,20041,20659.1,20899.5
+39000,Ohio,51,      Finance and insurance,96607.2,97344.5,97880.9,100737.4
+39000,Ohio,56,      Real estate and rental and leasing,99861,101811.6,103509.7,105027.1
+39000,Ohio,60,"      Professional, scientific, and technical services",48279.4,48943.9,49791.6,50394.3
+39000,Ohio,64,      Management of companies and enterprises,25018.3,25926.4,26966.2,26395.4
+39000,Ohio,65,      Administrative and support and waste management and remediation services,26670.8,27129.1,27183.8,27407.4
+39000,Ohio,69,      Educational services,7012.9,7066.8,7175,7381.8
+39000,Ohio,70,      Health care and social assistance,72266.2,73069.2,75293.9,76042.7
+39000,Ohio,76,"      Arts, entertainment, and recreation",8520.3,8425.5,8587.9,8839
+39000,Ohio,79,      Accommodation and food services,23750,24381,24979,25160.7
+39000,Ohio,82,      Other services (except government and government enterprises),18405.3,18451,18543,19008.3
+39000,Ohio,83,  Government and government enterprises,85390.9,86127.4,87621.6,89125.4
+39000,Ohio,84,    Federal civilian,14686.1,14969.4,15279.1,15479.7
+39000,Ohio,85,    Military,6142,6211.4,6320.8,6406.1
+39000,Ohio,86,    State and local,64562.8,64946.6,66021.7,67239.6
+,,,,,,,
+Legend/Footnotes,,,,,,,
+"1. For levels: millions of dollars, seasonally adjusted at annual rates; for annualized percent change and compound growth rate: seasonally adjusted at annual rates. Industry detail is based on the 2017 North American Industry Classification System (NAICS). Calculations are performed on unrounded data.",,,,,,,
+"  Last updated: December 20, 2024-- new statistics for 2024:Q3.",,,,,,,
