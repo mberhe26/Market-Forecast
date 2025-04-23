@@ -9,36 +9,51 @@
 <body>
     <h1>Market Forecast</h1>
     <form id="forecastForm">
+        <label for="year">Select Year:</label>
+        <select id="year" name="year">
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+        </select>
+        <br><br>
+      
+
         <label for="industry">Select Industry:</label>
         <select id="industry" name="industry">
-                    <option value="all-industry">All Industry Total</option>
-                    <option value="private-industries">Private Industries</option>
-                    <option value="agriculture">Agriculture, Forestry, Fishing and Hunting</option>
-                    <option value="mining">Mining, Quarrying, and Oil and Gas Extraction</option>
-                    <option value="utilities">Utilities</option>
-                    <option value="construction">Construction</option>
-                    <option value="manufacturing">Manufacturing</option>
-                    <option value="durable-goods">Durable Goods Manufacturing</option>
-                    <option value="nondurable-goods">Nondurable Goods Manufacturing</option>
-                    <option value="wholesale-trade">Wholesale Trade</option>
-                    <option value="retail-trade">Retail Trade</option>
-                    <option value="transportation">Transportation and Warehousing</option>
-                    <option value="information">Information</option>
-                    <option value="finance">Finance and Insurance</option>
-                    <option value="real-estate">Real Estate and Rental and Leasing</option>
-                    <option value="professional-services">Professional, Scientific, and Technical Services</option>
-                    <option value="management">Management of Companies and Enterprises</option>
-                    <option value="admin-support">Administrative and Support and Waste Management and Remediation Services</option>
-                    <option value="education">Educational Services</option>
-                    <option value="healthcare">Health Care and Social Assistance</option>
-                    <option value="arts">Arts, Entertainment, and Recreation</option>
-                    <option value="accommodation">Accommodation and Food Services</option>
-                    <option value="other-services">Other Services (Except Government and Government Enterprises)</option>
-                    <option value="government">Government and Government Enterprises</option>
-                    <option value="federal-civilian">Federal Civilian</option>
-                    <option value="military">Military</option>
-                    <option value="state-local">State and Local</option>
-    </select>
+            <option value="All industry total">All Industry Total</option>
+            <option value="Private industries">Private Industries</option>
+            <option value="Agriculture, forestry, fishing and hunting">Agriculture, Forestry, Fishing and Hunting</option>
+            <option value="Mining, quarrying, and oil and gas extraction">Mining, Quarrying, and Oil and Gas Extraction</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Construction">Construction</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Durable goods manufacturing">Durable Goods Manufacturing</option>
+            <option value="Nondurable goods manufacturing">Nondurable Goods Manufacturing</option>
+            <option value="Wholesale trade">Wholesale Trade</option>
+            <option value="Retail trade">Retail Trade</option>
+            <option value="Transportation and warehousing">Transportation and Warehousing</option>
+            <option value="Information">Information</option>
+            <option value="Finance and insurance">Finance and Insurance</option>
+            <option value="Real estate and rental and leasing">Real Estate and Rental and Leasing</option>
+            <option value="Professional, scientific, and technical services">Professional, Scientific, and Technical Services</option>
+            <option value="Management of companies and enterprises">Management of Companies and Enterprises</option>
+            <option value="Administrative and support and waste management and remediation services">Administrative and Support and Waste Management and Remediation Services</option>
+            <option value="Educational services">Educational Services</option>
+            <option value="Health care and social assistance">Health Care and Social Assistance</option>
+            <option value="Arts, entertainment, and recreation">Arts, Entertainment, and Recreation</option>
+            <option value="Accommodation and food services">Accommodation and Food Services</option>
+            <option value="Other services (except government and government enterprises)">Other Services (Except Government and Government Enterprises)</option>
+            <option value="Government and government enterprises">Government and Government Enterprises</option>
+            <option value="Federal civilian">Federal Civilian</option>
+            <option value="Military">Military</option>
+            <option value="State and local">State and Local</option>
+        </select>
+
     <button type="submit">Get Forecast</button>
 </form>
 <div id="result"></div>
@@ -48,6 +63,7 @@
         event.preventDefault();
 
         const industryName = document.getElementById('industry').value;
+        const year = parseInt(document.getElementById('year').value);
 
         try {
             const response = await fetch('/predict', {
@@ -55,15 +71,19 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ industry_name: industryName }),
+                body: JSON.stringify({
+                    industry_name: industryName,
+                    target_year: year,
+                    
+                }),
             });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                document.getElementById('result').innerText = `Error: ${errorData.error}`;
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById('result').innerText = `Forecasted GDP for ${industryName} in ${year}: ${data.forecasted_gdp.toFixed(3)}`;
             } else {
-                const data = await response.json();
-                document.getElementById('result').innerText = `Forecasted GDP: ${data.forecasted_gdp}`;
+                document.getElementById('result').innerText = `Error: ${data.error}`;
             }
         } catch (error) {
             console.error('Error:', error);
@@ -71,5 +91,6 @@
         }
     });
 </script>
+
 </body>
 </html>
