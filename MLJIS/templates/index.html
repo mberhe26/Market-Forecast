@@ -9,23 +9,10 @@
 <body>
     <h1>Market Forecast</h1>
     <form id="forecastForm">
-        <label for="year">Select Year:</label>
-        <select id="year" name="year">
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
-            <option value="2027">2027</option>
-            <option value="2028">2028</option>
-            <option value="2029">2029</option>
-            <option value="2030">2030</option>
-        </select>
-        <br><br>
-      
-
+        
         <label for="industry">Select Industry:</label>
         <select id="industry" name="industry">
-            <option value="All industry total">All Industry Total</option>
+            <!-- <option value="All industry total">All Industry Total</option> -->
             <option value="Private industries">Private Industries</option>
             <option value="Agriculture, forestry, fishing and hunting">Agriculture, Forestry, Fishing and Hunting</option>
             <option value="Mining, quarrying, and oil and gas extraction">Mining, Quarrying, and Oil and Gas Extraction</option>
@@ -54,17 +41,22 @@
             <option value="State and local">State and Local</option>
         </select>
 
-    <button type="submit">Get Forecast</button>
+        <button type="submit">Get Forecast</button> <br><br>
+        <div class="gdp">
+            <label>Forecasted GDP:</label>
+            <div id="result" class="inline-box"></div>
+        </div><br><br>
+        <div id="insight" class="box"></div>
+        
+    <!-- <div id="insight" class = "box"></div> -->
 </form>
-<div id="result"></div>
 
 <script>
     document.getElementById('forecastForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
         const industryName = document.getElementById('industry').value;
-        const year = parseInt(document.getElementById('year').value);
-
+       
         try {
             const response = await fetch('/predict', {
                 method: 'POST',
@@ -72,8 +64,7 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    industry_name: industryName,
-                    target_year: year,
+                    industry_name: industryName
                     
                 }),
             });
@@ -81,13 +72,18 @@
             const data = await response.json();
 
             if (response.ok) {
-                document.getElementById('result').innerText = `Forecasted GDP for ${industryName} in ${year}: ${data.forecasted_gdp.toFixed(3)}`;
-            } else {
-                document.getElementById('result').innerText = `Error: ${data.error}`;
-            }
+            document.getElementById('result').innerText = 
+                ` ${data.forecasted_gdp.toFixed(3)}`;
+
+            document.getElementById('insight').innerText = data.forecast_insight;
+        } else {
+            document.getElementById('result').innerText = `Error: ${data.error}`;
+            document.getElementById('insight').innerText = '';
+        }
+
         } catch (error) {
             console.error('Error:', error);
-            document.getElementById('result').innerText = 'An error occurred while fetching the forecast.';
+            document.getElementById('result').innerText = ' error fetching the forecast.';
         }
     });
 </script>

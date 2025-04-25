@@ -1,15 +1,14 @@
 
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler  # Fixed import
+from sklearn.preprocessing import StandardScaler  
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-from sklearn.model_selection import TimeSeriesSplit
 
+#load and prepare data
 def load_and_prepare_data():
     
-    data = pd.read_csv("data/2124.csv").apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-    
+    data = pd.read_csv("C:/Users/maste/Desktop/Market-Forecast/MLJIS/data/2124.csv").apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     df = pd.concat([data], ignore_index=True)
     df.columns = df.columns.str.strip()
 
@@ -25,12 +24,17 @@ def load_and_prepare_data():
     df_long['Datetime'] = pd.to_datetime(
         df_long['Year'].astype(str) + ' ' + df_long['Quarter_Label'].str.replace('Q', '')
     )
+    # print(df_long.tail())
     return df_long.sort_values(['Description', 'Datetime']).rename(columns={'Value':'GDP'})
+
+
+# Function to calculate Mean Absolute Percentage Error (MAPE)
 def mean_absolute_percentage_error(y_true, y_pred): 
     y_true, y_pred = np.array(y_true), np.array(y_pred)
     return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
 
+# Function to forecast and evaluate the model
 def forecast_and_evaluate(industry_name='All industry total'):
     df_long = load_and_prepare_data()
     
@@ -43,7 +47,7 @@ def forecast_and_evaluate(industry_name='All industry total'):
     
     industry_df = industry_df.sort_values('Datetime')
     
-    #  lag validation
+    #  lag validation 
     for lag in [1,2,3,4]:
         industry_df[f'GDP_lag{lag}'] = industry_df['GDP'].shift(lag)
     
@@ -52,7 +56,7 @@ def forecast_and_evaluate(industry_name='All industry total'):
     
     
     industry_df = industry_df.dropna()
-    
+    # print(industry_df)
     
     # historical data
     if len(industry_df) < 11:  
@@ -62,14 +66,14 @@ def forecast_and_evaluate(industry_name='All industry total'):
     train_mask = industry_df['Datetime'] < '2024-01-12'
     test_mask = industry_df['Datetime'] >= '2024-01-12'
     
-   
+   # train/test split validation
     X_train = industry_df[train_mask][['GDP_lag1', 'GDP_lag2', 'GDP_lag3', 'GDP_lag4', 'Quarter_Num']]
     X_test = industry_df[test_mask][['GDP_lag1', 'GDP_lag2', 'GDP_lag3', 'GDP_lag4', 'Quarter_Num']]
     
     if len(X_train) == 0:
         raise ValueError("Training data empty - check your date ranges or data filtering")
     if len(X_test) == 0:
-        print("⚠️ No test data found - using last 4 quarters as test set")
+        print("No test data found - using last 4 quarters as test set")
         X_test = industry_df.iloc[-4:][['GDP_lag1', 'GDP_lag2', 'GDP_lag3', 'GDP_lag4', 'Quarter_Num']]
     
     # Feature/target assignment
@@ -77,10 +81,10 @@ def forecast_and_evaluate(industry_name='All industry total'):
     y_test = industry_df[test_mask]['target']
     
     
-    if X_train.shape[1] != 5:  # 5 features expected
+    if X_train.shape[1] != 5: 
         raise ValueError(f"Feature dimension mismatch. Expected 5 features, got {X_train.shape[1]}")
     
-    # Scaling with safety checks
+   
     scaler = StandardScaler()
     try:
         X_train_scaled = scaler.fit_transform(X_train)
@@ -116,7 +120,7 @@ def forecast_and_evaluate(industry_name='All industry total'):
     mape = mean_absolute_percentage_error(y_test, y_pred)
 
     
-    #  prediction
+    # Forecasting the next quarter
     last_row = industry_df.iloc[-1][['GDP_lag1', 'GDP_lag2', 'GDP_lag3', 'GDP_lag4', 'Quarter_Num']]
     next_q = (last_row['Quarter_Num'] % 4) + 1
     new_lags = [industry_df['GDP'].iloc[-1]] + last_row[['GDP_lag1','GDP_lag2','GDP_lag3']].tolist()
@@ -132,4 +136,27 @@ def forecast_and_evaluate(industry_name='All industry total'):
     print(f"Predicted Next Quarter GDP: {prediction:.2f}")
 
     
-    return prediction
+
+#Pattern Analysis Description 
+    recent_gdp = industry_df['GDP'].iloc[-4:].values  
+    trend_2024 = np.sign(np.diff(recent_gdp))         
+    last_actual = recent_gdp[-1]
+    direction = prediction - last_actual
+
+ 
+    if all(t > 0 for t in trend_2024):
+        trend_desc = "consistent growth through 2023 - 2024"
+    elif all(t < 0 for t in trend_2024):
+        trend_desc = "consistent decline through 2023 - 2024"
+    else:
+        trend_desc = "mixed performance through 2023 - 2024"
+
+
+    if direction > 0:
+        insight = f"The GDP forecast for 2025 shows an increase compared to 2024, following  {trend_desc}. This suggests a potentially growing industry."
+    elif direction < 0:
+        insight = f"The GDP forecast for 2025 shows a slight decline from 2024, after  {trend_desc}. This may reflect seasonal or market corrections."
+    else:
+        insight = f"The GDP is forecasted to stay flat in 2025, after  {trend_desc}. Consider monitoring for upcoming changes."
+    quarter_label = "2025"
+    return prediction, mape, quarter_label, insight

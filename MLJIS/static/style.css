@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(82, 139, 139);
+    background-color: rgb(155, 168, 168);
     margin: 0;
     padding: 0;
     text-align: center;
@@ -8,14 +8,54 @@ body{
 main {
     margin: 20px;
 }
-#input-form {
-    background: white;
-    padding: 20px;
-    margin: 10px auto;
-    width: 75%;
+#forecastForm {
+    background: rgb(142, 148, 141);
+    padding: 50px;
+    width: 950px;
+    max-width: 1000px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 0 auto;
+    font-size: 20px;
+} 
+
+#results{
+    margin-top: 50px;
+    color: #333;
+    font-size: 1rem;
+    padding-top: 5px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    margin: 10px auto;
+    width: 10%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+   
 }
 
-#results {
+#industry{
+    font-size: 16px;
+}
+#resultsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
     margin-top: 20px;
+}
+
+.box {
+   
+    font-size: 16px;
+    color: #333;
+    background-color: white;
+   
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+     display: inline-block; 
+}
+.inline-box {
+    font-size: 16px;
+    color: #333;
+    background-color: white;
+    
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
